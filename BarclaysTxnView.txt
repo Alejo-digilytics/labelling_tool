@@ -1,16 +1,16 @@
 
-Today: 16 Jul 2020
+Today: 16 [ID-B] Jul [ID-L] 2020
 MR MOHAMMED USMAN JAVIED 
 Transactions
-EUROPEAN APPAREL LTD 20-72-67 23619389
-Available balance £12,484.17
+EUROPEAN [AN-L] [AN-B] APPAREL [AN-I] LTD 20-72-67 [SC-U] 23619389 [ANU-U]
+Available balance £12,484.17 [CB-U]
 Last night's balance £12,490.87
 Overdraft limit £0.00
 Emergency Borrowing n/a
-Showing 28 transactions between 01/07/2020 and 15/07/2020 from 01/07/2020 to 16/07/2020
+Showing 28 transactions between 01/07/2020 [FD-U] and 15/07/2020 from 01/07/2020 [FD-U] to 16/07/2020 [TD-U]
 Pending debit card transactions
 Date Transaction Amount
-16/07/2020 16:10 POST OFFICE COUNTER MANCHESTER GB -£6.70
+16/07/2020 [TD-U] 16:10 POST OFFICE COUNTER MANCHESTER GB -£6.70
 Card Number **** **** **** 2021
 Date Description Money in Money out Balance
 Contactless Card Purchase
@@ -87,20 +87,20 @@ Direct Debit
 Page 2 of 3
 X3756456/Z049470 DDR
 Debit
-01/07/2020 Transglobal Expres    -£35.21 £3,716.53
+01/07/2020 [FD-U] Transglobal Expres    -£35.21 £3,716.53
 ON 30 JUN BDC
 Standing Order
-01/07/2020 PATEL & CO ACCOUNT    -£144.00 £3,751.74
+01/07/2020 [FD-U] PATEL & CO ACCOUNT    -£144.00 £3,751.74
 L26 STO
 Direct Debit
-01/07/2020 INVESTEC ASSET FIN    -£128.73 £3,895.74
+01/07/2020 [FD-U] INVESTEC ASSET FIN    -£128.73 £3,895.74
 21943023815882055 DDR
 Direct Debit
-01/07/2020 VERISURE SERVICES    -£66.94 £4,024.47
+01/07/2020 [FD-U] VERISURE SERVICES    -£66.94 £4,024.47
 HMKBK7R-222142 DDR
 Direct Debit
 ASH WASTE SERVICES 
-01/07/2020   -£45.37 £4,091.41
+01/07/2020 [FD-U]   -£45.37 £4,091.41
 ASH1000023197 
 FIRST DDR PAYMENT DDR
 Need to view older transactions?

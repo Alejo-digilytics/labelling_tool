@@ -110,7 +110,7 @@ class labeler():
                         in_values = values_list[1:-1]
                         for val in in_values:
                             new_value = new_value.replace(val, val + ' [' + tag + '-I]', 1)
-                        new_value = new_value.replace(values_list[0], values_list[0] + ' [' + tag + '-L]', 1)
+                        new_value = new_value.replace(values_list[-1], values_list[-1] + ' [' + tag + '-L]', 1)
                     doc = doc.replace(value, new_value)
 
             tagged_file_path = join(self.base_path, file.split(".")[0] + ".txt")
