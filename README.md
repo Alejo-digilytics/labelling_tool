@@ -12,5 +12,8 @@ Process:
                 test = labeler(bank_name="barclays")
                 test.tag_all()
   4. Pick the tagged txt files from the folder Data and repeat the process from 1
-  
-It can be use as a sigle script to run if one adds the jsons as dictionaries in the fil labeller.py.
+ 
+### REMARKS
+1. It can be use as a single script to run if one adds the jsons as dictionaries in the fil labelling.py.
+
+2. The pdf use in the code from main.py is not in the repository since it's a real bank statement and therefore private. 
