@@ -9,7 +9,7 @@ the bank statements and run.
   Example:
   
             bank statements from Barclays in Data
-  2. Add the extractor function, or conection to the API to convert from a pdf into a json file already 
+  2. Add the extractor function, or connection to the API to convert from a pdf into a json file already 
   existing in Digilytics.
   Example:
   
