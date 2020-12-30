@@ -2,38 +2,90 @@ import logging
 import json
 from os.path import join
 import os
-import pdfplumber
+import sys
+import subprocess
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
+# This dictionary contains as keys the bank names and as values the extractors
 
 Dict_extractors = {
-    "barclays": "barclays-extractor"
+    "barclays": "barclays-extractor",
+    "hsbc": "HSBC-extractor",
+    "lloyds": "Lloyds-extractor",
+    "natwest": "Natwest-extractor",
+    "rbs": "RBS-extractor",
+    "santander": "Santander-extractor",
+    "tsb": "TSB-extractor"
 }
 
+# This dictionary contains as keys the the entities names for NER and as values the entities tags for NER
+
+BS_NER = {
+    "from_date": "FD",
+    "to_date": "TD",
+    "Sort-Code": "SC",
+    "IBAN": "IBAN",
+    "account_name": "AN",
+    "account_address": "AA",
+    "account_number": "ANU",
+    "Bic": "BIC",
+    "account_type": "AT",
+    "closing_balance": "CB",
+    "opening_balance": "OB",
+    "issue_date": "ID",
+    "payments_out": "POW",
+    "payments_in": "PID",
+    "payment_date": "PDA",
+    "payment_details": "PDE",
+    "paid_in": "PI",
+    "paid_out": "PO",
+    "balance": "B",
+    "payment_type": "PT",
+    "other_withdrawals": "OW",
+    "other_deposits": "OD",
+    "average_account_balance": "AAB",
+    "branch_transit_number": "BTN",
+    "bank_entity": "BE"
+}
+# This dictionary contains as keys the the entity names from the extractors and as values the entity tags for NER
+
+SWITCHER = {
+    "from_date": "FD",
+    "to_date": "TD",
+    "sort_code": "SC",
+    "iban": "IBAN",
+    "account_number": "ANU",
+    "account_address": "AA",
+    "account_name": "AN",
+    "bic": "BIC",
+    "account_type": "AT",
+    "opening_balance": "OB",
+    "closing_balance": "CB",
+    "issue_date": "ID",
+    "payments_out": "POW",
+    "payments_in": "PID"
+}
+
+
 class labeler():
-    def __init__(self, bank_name, data_path=None):
+    def __init__(self, bank_name, data_folder=None):
         # Fix the bank name
         self.bank_name = bank_name
 
         # Fix the paths to the sjons with the entities
         self.base_path = os.getcwd()
-        self.data_path = data_path if data_path is not None else join(self.base_path, "Data")
-        self.switcher_path = join(self.base_path, "Dictionaries", "switcher.json")
+        self.data_path = join(self.base_path, data_folder) if data_folder is not None else join(self.base_path, "Data")
+        self.switcher = SWITCHER
 
-        # Load the jsons as dictionaries in python
-        with open(self.switcher_path, 'r') as f1:
-            self.switcher = json.load(f1)
-            f1.close()
-        self.BS_NER_path = join(self.base_path, "Dictionaries", "BS_NER.json")
-        with open(self.BS_NER_path, 'r') as f2:
-            self.BS_NER = json.load(f2)
-            f2.close()
-
-        #
+        # Fixing file names and extractor
         self.extractor = Dict_extractors[bank_name.lower()]
         self.num_files = self.extract_file_names()
 
     def extract_file_names(self):
         """ Extracts the names of all the files in data_path"""
+        logger.info(" Creating a list of files to be labeled ...")
         # List the files to be labeled
         list_files = []
         for file in os.listdir(self.data_path):
@@ -45,9 +97,9 @@ class labeler():
     def extract_entities(self, my_output=None):
         """ Extracts the entities from each file listed and creates a list of dictionaries entity type (old one)
         and value (text)"""
+        logger.info(" Extracting entities with the extractors and creating a list of dictionaries {entity:value} ...")
         # Extract entities with Dig tools
         self.dict_entities = {}
-
 
         # Loop over files
         for file in self.list_files:
@@ -75,6 +127,7 @@ class labeler():
     def extract_text(self):
         """ Extracts the entities from each file listed and creates a list of dictionaries entity type (old one)
         and value (text)"""
+        logger.info(" Extracting text from pdfs ...")
         self.dict_text = {}
         # Loop over files
         for file in self.list_files:
@@ -87,13 +140,14 @@ class labeler():
 
     def tagger(self):
         """ replace the values from the entities by their value per word plus the positional tag,
-         using the switecher json file"""
+         using the switcher json file"""
+        logger.info(" using the extracted entities and text to pre-tag the bank statements ...")
         # Loop over files
         for file in self.list_files:
             list_entities = self.dict_entities[file]
             doc = self.dict_text[file]
             for entity in list_entities:
-                for key, value in entity.items(): # There is only one key per dictionary, not a real loop
+                for key, value in entity.items():  # There is only one key per dictionary, not a real loop
                     tag = self.switcher.get(key, "Invalid field")
                     new_value = value
                     values_list = value.split(' ')
@@ -113,13 +167,55 @@ class labeler():
                         new_value = new_value.replace(values_list[-1], values_list[-1] + ' [' + tag + '-L]', 1)
                     doc = doc.replace(value, new_value)
 
-            tagged_file_path = join(self.base_path, file.split(".")[0] + ".txt")
+            tagged_file_path = join(self.data_path, file.split(".")[0] + ".txt")
             with open(tagged_file_path, "w+", encoding="utf-8") as file:
                 file.write(doc)
                 file.close()
-                
+
     def tag_all(self):
         self.extract_file_names()
         self.extract_entities(my_output=None)
         self.extract_text()
         self.tagger()
+
+
+def get_logger(
+        LOG_FORMAT='%(asctime)s %(name)s %(levelname)s %(message)s',
+        LOG_NAME=__name__,
+        LOG_FILE_INFO='file.log',
+        LOG_FILE_ERROR='file.err'):
+    log = logging.getLogger(LOG_NAME)
+    log_formatter = logging.Formatter(LOG_FORMAT)
+
+    # comment this to suppress console output
+    stream_handler = logging.StreamHandler()
+    stream_handler.setFormatter(log_formatter)
+    log.addHandler(stream_handler)
+
+    file_handler_info = logging.FileHandler(LOG_FILE_INFO, mode='w')
+    file_handler_info.setFormatter(log_formatter)
+    file_handler_info.setLevel(logging.INFO)
+    log.addHandler(file_handler_info)
+
+    file_handler_error = logging.FileHandler(LOG_FILE_ERROR, mode='w')
+    file_handler_error.setFormatter(log_formatter)
+    file_handler_error.setLevel(logging.ERROR)
+    log.addHandler(file_handler_error)
+
+    log.setLevel(logging.INFO)
+
+    return log
+
+
+if __name__ == '__main__':
+    # Logger
+    logger = get_logger()
+
+    # Install the library pdfplumber and import it
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pdfplumber'])
+    import pdfplumber
+
+    # tag the documents
+    logger.info("Create the class labeler")
+    My_labeler = labeler(bank_name="barclays", data_folder="Data")
+    My_labeler.tag_all()
