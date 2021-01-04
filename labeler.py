@@ -159,29 +159,35 @@ class labeler():
         for file in self.list_files:
             list_entities = self.dict_entities[file]
             doc = self.dict_text[file]
+            doc1 = ""
             for entity in list_entities:
                 for key, value in entity.items():  # There is only one key per dictionary, not a real loop
                     tag = self.switcher.get(key, "Invalid field")
-                    if tag== "Invalid field":
-                        print(key)
-                    value = value.strip()
-                    new_value = value
-                    values_list = value.split(' ')
+                    values_list = [v for v in value.strip().split(" ") if v !=""]
 
                     if len(values_list) == 1:
-                        new_value = new_value.replace(values_list[0], values_list[0] + ' [' + tag + '-U]', 1)
+                        values_list[0] = values_list[0] + ' [' + tag + '-U] '
 
                     if len(values_list) == 2:
-                        new_value = new_value.replace(values_list[0], values_list[0] + ' [' + tag + '-B]', 1)
-                        new_value = new_value.replace(values_list[1], values_list[1] + ' [' + tag + '-L]', 1)
+                        values_list[0] = values_list[0] + ' [' + tag + '-B] '
+                        values_list[1] = values_list[1] + ' [' + tag + '-L] '
 
                     if len(values_list) > 2:
-                        new_value = new_value.replace(values_list[0], values_list[0] + ' [' + tag + '-B]', 1)
-                        in_values = values_list[1:-1]
-                        for val in in_values:
-                            new_value = new_value.replace(val, val + ' [' + tag + '-I]', 1)
-                        new_value = new_value.replace(values_list[-1], values_list[-1] + ' [' + tag + '-L]', 1)
-                    doc = doc.replace(value, new_value)
+                        values_list[0] = values_list[0] + ' [' + tag + '-B] '
+                        values_list[-1] = values_list[-1] + ' [' + tag + '-L] '
+                        num_val = len(values_list)
+                        for i in range(num_val):
+                            if i!=0 and i!=(num_val-1):
+                                values_list[i] = values_list[i] + ' [' + tag + '-I] '
+                    new_value = " ".join(values_list)
+                    try:
+                        doc11, doc2 = doc.split(value,1)
+                        doc1 = doc1 + doc11 + new_value
+                        doc = doc2
+                    except:
+                        doc1.replace(value,new_value)
+
+            doc = doc1
 
             tagged_file_path = join(self.data_path, file.split(".")[0] + ".txt")
             with open(tagged_file_path, "w+", encoding="utf-8") as file:
