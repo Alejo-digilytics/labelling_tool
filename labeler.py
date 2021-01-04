@@ -126,11 +126,11 @@ class labeler():
                     if "key" in entity.keys() and entity["key"] in self.switcher.keys() and entity["value"] is not None:
                         dict_[entity["key"]] = entity["value"]
                         list_.append(dict_)
-                    elif "key" in entity.keys() and entity["key"]=="lines":
+                    elif "key" in entity.keys() and entity["key"] == "lines":
                         transactions = entity["value"]
                         for transaction in transactions:
                             for transaction_entity in transaction:
-                                if transaction_entity["value"]!="":
+                                if transaction_entity["value"] != "":
                                     dict_[transaction_entity["key"]] = transaction_entity["value"]
                                     list_.append(dict_)
                     else:
@@ -163,7 +163,7 @@ class labeler():
             for entity in list_entities:
                 for key, value in entity.items():  # There is only one key per dictionary, not a real loop
                     tag = self.switcher.get(key, "Invalid field")
-                    values_list = [v for v in value.strip().split(" ") if v !=""]
+                    values_list = [v for v in value.strip().split(" ") if v != ""]
 
                     if len(values_list) == 1:
                         values_list[0] = values_list[0] + ' [' + tag + '-U] '
@@ -177,15 +177,15 @@ class labeler():
                         values_list[-1] = values_list[-1] + ' [' + tag + '-L] '
                         num_val = len(values_list)
                         for i in range(num_val):
-                            if i!=0 and i!=(num_val-1):
+                            if i != 0 and i != (num_val - 1):
                                 values_list[i] = values_list[i] + ' [' + tag + '-I] '
                     new_value = " ".join(values_list)
                     try:
-                        doc11, doc2 = doc.split(value,1)
-                        doc1 = doc1 + doc11 + new_value
+                        doc11, doc2 = doc.split(value, 1)
+                        doc1 = doc1 + doc11 + " " + new_value
                         doc = doc2
                     except:
-                        doc1.replace(value,new_value)
+                        doc1.replace(value, new_value)
 
             doc = doc1
 
