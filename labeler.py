@@ -65,7 +65,12 @@ SWITCHER = {
     "closing_balance": "CB",
     "issue_date": "ID",
     "payments_out": "POW",
-    "payments_in": "PID"
+    "payments_in": "PID",
+    "date": "PDA",
+    "description": "PDE",
+    "paid_out": "PO",
+    "balance": "B",
+    "paid_in": "PI"
 }
 
 
@@ -104,7 +109,7 @@ class labeler():
         # Loop over files
         for file in self.list_files:
             if not my_output:
-                output = self.extractor(join(data_path, file))
+                output = self.extractor(join(self.data_path, file))
             else:
                 with open(my_output, 'r') as f1:
                     output = json.load(f1)
@@ -121,7 +126,15 @@ class labeler():
                     if "key" in entity.keys() and entity["key"] in self.switcher.keys() and entity["value"] is not None:
                         dict_[entity["key"]] = entity["value"]
                         list_.append(dict_)
-
+                    elif "key" in entity.keys() and entity["key"]=="lines":
+                        transactions = entity["value"]
+                        for transaction in transactions:
+                            for transaction_entity in transaction:
+                                if transaction_entity["value"]!="":
+                                    dict_[transaction_entity["key"]] = transaction_entity["value"]
+                                    list_.append(dict_)
+                    else:
+                        pass
             self.dict_entities[file] = list_
 
     def extract_text(self):
@@ -149,6 +162,9 @@ class labeler():
             for entity in list_entities:
                 for key, value in entity.items():  # There is only one key per dictionary, not a real loop
                     tag = self.switcher.get(key, "Invalid field")
+                    if tag== "Invalid field":
+                        print(key)
+                    value = value.strip()
                     new_value = value
                     values_list = value.split(' ')
 
@@ -172,9 +188,9 @@ class labeler():
                 file.write(doc)
                 file.close()
 
-    def tag_all(self):
+    def tag_all(self, my_output=None):
         self.extract_file_names()
-        self.extract_entities(my_output=None)
+        self.extract_entities(my_output=my_output)
         self.extract_text()
         self.tagger()
 
@@ -216,6 +232,7 @@ if __name__ == '__main__':
     import pdfplumber
 
     # tag the documents
+    output_path = join(os.getcwd(), "Data", "output.json")
     logger.info("Create the class labeler")
     My_labeler = labeler(bank_name="barclays", data_folder="Data")
-    My_labeler.tag_all()
+    My_labeler.tag_all(my_output=output_path)
