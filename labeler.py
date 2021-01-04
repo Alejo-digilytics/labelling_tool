@@ -4,6 +4,7 @@ from os.path import join
 import os
 import sys
 import subprocess
+import ast
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -94,7 +95,7 @@ class labeler():
         # List the files to be labeled
         list_files = []
         for file in os.listdir(self.data_path):
-            if ".pdf" in file:
+            if "pdf" in file:
                 list_files.append(file)
         self.list_files = list_files
         return len(list_files)
@@ -109,10 +110,18 @@ class labeler():
         # Loop over files
         for file in self.list_files:
             if not my_output:
-                output = self.extractor(join(self.data_path, file))
+                file_output = os.path.join(self.data_path, file.replace(".pdf", "") + ".json")
+                with open(file_output, 'r') as f1:
+                    output = json.load(f1)
+                    f1.close()
+                    if output != "":
+                        output = json.loads(output)
             else:
                 with open(my_output, 'r') as f1:
                     output = json.load(f1)
+            if output == "":
+                self.list_files.remove(file)
+                continue
             pages = output['extractionResults']['documentTypes'][0]['documents'][0]['pages']
 
             # Loop over pages
@@ -142,14 +151,17 @@ class labeler():
         and value (text)"""
         logger.info(" Extracting text from pdfs ...")
         self.dict_text = {}
+
         # Loop over files
         for file in self.list_files:
             text = ""
             pdf = pdfplumber.open(join(self.data_path, file))
             for page in pdf.pages:
                 page_text = page.extract_text(x_tolerance=3, y_tolerance=3)
-                text += "\n" + page_text
-            self.dict_text[file] = text
+                if page_text is not None:
+                    text += "\n" + page_text
+            if text != "":
+                self.dict_text[file] = text
 
     def tagger(self):
         """ replace the values from the entities by their value per word plus the positional tag,
@@ -157,45 +169,45 @@ class labeler():
         logger.info(" using the extracted entities and text to pre-tag the bank statements ...")
         # Loop over files
         for file in self.list_files:
-            list_entities = self.dict_entities[file]
-            doc = self.dict_text[file]
-            doc1 = ""
-            for entity in list_entities:
-                for key, value in entity.items():  # There is only one key per dictionary, not a real loop
-                    tag = self.switcher.get(key, "Invalid field")
-                    values_list = [v for v in value.strip().split(" ") if v != ""]
+            if file in self.dict_entities.keys() and file in self.dict_text.keys():
+                list_entities = self.dict_entities[file]
+                doc = self.dict_text[file]
+                doc1 = ""
+                for entity in list_entities:
+                    for key, value in entity.items():  # There is only one key per dictionary, not a real loop
+                        tag = self.switcher.get(key, "Invalid field")
+                        values_list = [v for v in value.strip().split(" ") if v != ""]
 
-                    if len(values_list) == 1:
-                        values_list[0] = values_list[0] + ' [' + tag + '-U] '
+                        if len(values_list) == 1:
+                            values_list[0] = values_list[0] + ' [' + tag + '-U] '
 
-                    if len(values_list) == 2:
-                        values_list[0] = values_list[0] + ' [' + tag + '-B] '
-                        values_list[1] = values_list[1] + ' [' + tag + '-L] '
+                        if len(values_list) == 2:
+                            values_list[0] = values_list[0] + ' [' + tag + '-B] '
+                            values_list[1] = values_list[1] + ' [' + tag + '-L] '
 
-                    if len(values_list) > 2:
-                        values_list[0] = values_list[0] + ' [' + tag + '-B] '
-                        values_list[-1] = values_list[-1] + ' [' + tag + '-L] '
-                        num_val = len(values_list)
-                        for i in range(num_val):
-                            if i != 0 and i != (num_val - 1):
-                                values_list[i] = values_list[i] + ' [' + tag + '-I] '
-                    new_value = " ".join(values_list)
-                    try:
-                        doc11, doc2 = doc.split(value, 1)
-                        doc1 = doc1 + doc11 + " " + new_value
-                        doc = doc2
-                    except:
-                        doc1.replace(value, new_value)
+                        if len(values_list) > 2:
+                            values_list[0] = values_list[0] + ' [' + tag + '-B] '
+                            values_list[-1] = values_list[-1] + ' [' + tag + '-L] '
+                            num_val = len(values_list)
+                            for i in range(num_val):
+                                if i != 0 and i != (num_val - 1):
+                                    values_list[i] = values_list[i] + ' [' + tag + '-I] '
+                        new_value = " ".join(values_list)
+                        try:
+                            doc11, doc2 = doc.split(value, 1)
+                            doc1 = doc1 + doc11 + " " + new_value
+                            doc = doc2
+                        except:
+                            doc1.replace(value, new_value)
 
-            doc = doc1
+                doc = doc1
 
-            tagged_file_path = join(self.data_path, file.split(".")[0] + ".txt")
-            with open(tagged_file_path, "w+", encoding="utf-8") as file:
-                file.write(doc)
-                file.close()
+                tagged_file_path = join(self.data_path, file.split(".")[0] + ".txt")
+                with open(tagged_file_path, "w+", encoding="utf-8") as file:
+                    file.write(doc)
+                    file.close()
 
     def tag_all(self, my_output=None):
-        self.extract_file_names()
         self.extract_entities(my_output=my_output)
         self.extract_text()
         self.tagger()
@@ -234,11 +246,10 @@ if __name__ == '__main__':
     logger = get_logger()
 
     # Install the library pdfplumber and import it
-    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pdfplumber'])
+    # subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pdfplumber'])
     import pdfplumber
 
     # tag the documents
-    output_path = join(os.getcwd(), "Data", "output.json")
     logger.info("Create the class labeler")
     My_labeler = labeler(bank_name="barclays", data_folder="Data")
-    My_labeler.tag_all(my_output=output_path)
+    My_labeler.tag_all(my_output=None)
