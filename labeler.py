@@ -124,11 +124,11 @@ class labeler():
             if output == "":
                 files_to_delete.append(file)
                 continue
-            try:
-                pages = output['extractionResults']['documentTypes'][0]['documents'][0]['pages']
-            except:
-                continue
-
+            #try:
+                #pages = output['extractionResults']['documentTypes'][0]['documents'][0]['pages']
+            # except:
+                #continue
+            pages = output['extractionResults']['documentTypes'][0]['documents'][0]['pages']
 
             # Loop over pages
             list_ = []
@@ -172,6 +172,8 @@ class labeler():
                     text += "\n" + page_text
             if text != "":
                 self.dict_text[file] = text
+        with open("text.txt", "w+", encoding="UTF-8") as mytext:
+            mytext.write(text)
 
     def tagger(self):
         """ replace the values from the entities by their value per word plus the positional tag,
@@ -184,9 +186,13 @@ class labeler():
                 doc = self.dict_text[file]
                 doc1 = ""
                 for entity in list_entities:
-                    for key, value in entity.items():  # There is only one key per dictionary, not a real loop
+                    for key, value in entity.items():
                         tag = self.switcher.get(key, "Invalid field")
-                        values_list = [v for v in value.strip().split(" ") if v != ""]
+                        values_list = [v for v in value.split(" ")]
+                        try:
+                            values_list.remove("")
+                        except:
+                            pass
 
                         if len(values_list) == 1:
                             values_list[0] = values_list[0] + ' [' + tag + '-U] '
@@ -204,11 +210,11 @@ class labeler():
                                     values_list[i] = values_list[i] + ' [' + tag + '-I] '
                         new_value = " ".join(values_list)
                         try:
-                            doc11, doc2 = doc.split(value, 1)
+                            doc11, doc2 = doc.split(value.strip(), 1)
                             doc1 = doc1 + doc11 + " " + new_value
                             doc = doc2
                         except:
-                            doc1.replace(value, new_value)
+                            doc1 = doc1.replace(value, new_value)
 
                 doc = doc1
 
