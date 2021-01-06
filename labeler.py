@@ -148,6 +148,7 @@ class labeler():
                                 if transaction_entity["value"] != "":
                                     dict_[transaction_entity["key"]] = transaction_entity["value"]
                                     list_.append(dict_)
+                                    dict_ = {}
                     else:
                         pass
             self.dict_entities[file] = list_
