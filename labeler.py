@@ -124,10 +124,11 @@ class labeler():
             if output == "":
                 files_to_delete.append(file)
                 continue
-            #try:
-                #pages = output['extractionResults']['documentTypes'][0]['documents'][0]['pages']
-            # except:
-                #continue
+            try:
+                pages = output['extractionResults']['documentTypes'][0]['documents'][0]['pages']
+            except:
+                continue
+
             pages = output['extractionResults']['documentTypes'][0]['documents'][0]['pages']
 
             # Loop over pages
@@ -179,6 +180,7 @@ class labeler():
     def tagger(self):
         """ replace the values from the entities by their value per word plus the positional tag,
          using the switcher json file"""
+
         logger.info(" using the extracted entities and text to pre-tag the bank statements ...")
         # Loop over files
         for file in self.list_files:
@@ -190,10 +192,8 @@ class labeler():
                     for key, value in entity.items():
                         tag = self.switcher.get(key, "Invalid field")
                         values_list = [v for v in value.split(" ")]
-                        try:
-                            values_list.remove("")
-                        except:
-                            pass
+                        values_list = list(filter(lambda a: a != "", values_list))
+                        initial_values_list = values_list.copy()
 
                         if len(values_list) == 1:
                             values_list[0] = values_list[0] + ' [' + tag + '-U] '
@@ -215,7 +215,29 @@ class labeler():
                             doc1 = doc1 + doc11 + " " + new_value
                             doc = doc2
                         except:
-                            doc1 = doc1.replace(value, new_value)
+                            if value in doc1:
+                                doc1 = doc1.replace(value, new_value)
+                            else:
+                                try:
+                                    end_doc1 = doc1[-100:]
+                                    doc1 = doc1[:-100]
+                                except:
+                                    end_doc1 = doc1[-50:]
+                                    doc1 = doc1[:-50]
+                                try:
+                                    start_doc = doc[:100]
+                                    doc = doc[100:]
+                                except:
+                                    start_doc = doc[:50]
+                                    doc = doc[50:]
+                                for i in range(len(initial_values_list)):
+                                    if initial_values_list[i] in end_doc1:
+                                        end_doc1 = end_doc1.replace(initial_values_list[i], values_list[i])
+                                    elif initial_values_list[i] in start_doc:
+                                        start_doc = start_doc.replace(initial_values_list[i], values_list[i])
+                                    else:
+                                        pass
+                                doc = end_doc1 + start_doc + doc
 
                 doc = doc1
 

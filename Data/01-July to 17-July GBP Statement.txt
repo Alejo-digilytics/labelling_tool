@@ -1,0 +1,122 @@
+
+Today: 16 [ID-B]  Jul [ID-L]  2020
+MR MOHAMMED USMAN JAVIED 
+Transactions
+EUROPEAN [AN-B]  APPAREL [AN-I]  LTD [AN-L]  20-72-67 [SC-U]  23619389 [ANU-U] 
+Available balance £12,484.17 [CB-U] 
+Last night's balance £12,490.87
+Overdraft limit £0.00
+Emergency Borrowing n/a
+Showing 28 transactions between  01/07/2020 [FD-U]  and 15/07/2020 from 01/07/2020 to  16/07/2020 [TD-U] 
+Pending debit card transactions
+Date Transaction Amount
+16/07/2020 16:10 POST OFFICE COUNTER MANCHESTER GB -£6.70
+Card Number **** **** **** 2021
+Date Description Money in Money out Balance
+Contactless Card Purchase
+ 15/07/2020 [PDA-U]  POST OFFICE COUNTE     -£6.70 [PO-U]   £12,490.87 [B-U] 
+ON 14 JUL CLP
+Funds Transfer
+ 13/07/2020 [PDA-U]  ESURE TRAVEL LIMIT     -£1,061.00 [PO-U]   £12,497.57 [B-U] 
+TICKETS INV 4932 FT
+Bill Payment
+ 13/07/2020 [PDA-U]  ESURE TRAVEL LIMIT     -£2,783.00 [PO-U]   £13,558.57 [B-U] 
+TICKETS INV 4931 BBP
+Bill Payment
+ 13/07/2020 [PDA-U]  CHORLTON EXPRESS T     -£450.00 [PO-U]   £16,341.57 [B-U] 
+PETER CHARGES BBP
+Bill Payment
+ 13/07/2020 [PDA-U]  BARCLAYCARD COMMER     -£32.00 [PO-U]   £16,791.57 [B-U] 
+5476760706737247 BBP
+Debit
+ 13/07/2020 [PDA-U]  CHARGES*130550*     -£6.00 [PO-U]   £16,823.57 [B-U] 
+COSY INTERNATION * TFR
+Debit
+Page 1 of 3
+ 13/07/2020 [PDA-U]  CHARGES*205958*     -£5.00 [PO-U]   £16,829.57 [B-U] 
+maxim smart manu * TFR
+Debit
+ 13/07/2020 [PDA-U]  CHARGES*205694*     -£5.00 [PO-U]   £16,834.57 [B-U] 
+maxim smart manu * TFR
+Debit
+ 13/07/2020 [PDA-U]  CHARGES*165931*     -£5.00 [PO-U]   £16,839.57 [B-U] 
+G-LOCS LIMITED * TFR
+Debit
+ 13/07/2020 [PDA-U]  ZMASO11-20070022 *     -£300.11 [PO-U]   £16,844.57 [B-U] 
+205958*maxim smar* TFR
+Debit
+ 13/07/2020 [PDA-U]  ZMASO11-20070174 *     -£179.00 [PO-U]   £17,144.68 [B-U] 
+205694*maxim smar* TFR
+Debit
+ 13/07/2020 [PDA-U]  CN200628 *     -£107.00 [PO-U]   £17,323.68 [B-U] 
+165931*G-LOCS LIM* TFR
+Debit
+ 13/07/2020 [PDA-U]  Cosy int *     -£9,225.00 [PO-U]   £17,430.68 [B-U] 
+130550*COSY INTER* TFR
+Credit
+ 10/07/2020 [PDA-U]   £15,020.00 [PI-U]     £26,655.68 [B-U] 
+461 YORKSHIRE STRE
+Bill Payment
+ 10/07/2020 [PDA-U]  HOME KITCHEN LTD     -£20,000.00 [PO-U]   £11,635.68 [B-U] 
+HOME KITCHEN LTD BBP
+Direct Debit
+ 10/07/2020 [PDA-U]  COMMERCIALBUSINESS     -£10.01 [PO-U]   £31,635.68 [B-U] 
+EUR006 DDR
+Credit
+ 09/07/2020 [PDA-U]  NB AVENUE LIMITE *   £26,061.80 [PI-U]     £31,645.69 [B-U] 
+168219*/ROC/NB AV* TFR
+Credit
+ 08/07/2020 [PDA-U]   £20,000.00 [PI-U]     £5,583.89 [B-U] 
+461 YORKSHIRE STRE
+Debit
+ 08/07/2020 [PDA-U]  CHARGES*202265*     -£6.00 [PO-U]   -£14,416.11 [B-U] 
+COSY INTERNATION * TFR
+Debit
+ 08/07/2020 [PDA-U]  Cosy int *     -£20,500.00 [PO-U]   -£14,410.11 [B-U] 
+202265*COSY INTER* TFR
+Counter Credit
+ 06/07/2020 [PDA-U]  HMRC JRS GRANT   £2,509.78 [PI-U]     £6,089.89 [B-U] 
+475PK00616569 BGC
+Debit
+CHARGES 
+ 06/07/2020 [PDA-U]  COMMISSION FOR     -£6.50 [PO-U]   £3,580.11 [B-U] 
+PERIOD 13MAY/14JUN
+**********************
+Direct Debit
+ 03/07/2020 [PDA-U]  CREATION.CO.UK     -£129.92 [PO-U]  £3,586.61
+Page 2 of 3
+X3756456/Z049470 DDR
+Debit
+ 01/07/2020 [PDA-U]  Transglobal Expres     -£35.21 [PO-U]   £3,716.53 [B-U] 
+ON 30 JUN BDC
+Standing Order
+ 01/07/2020 [PDA-U]  PATEL & CO ACCOUNT     -£144.00 [PO-U]   £3,751.74 [B-U] 
+L26 STO
+Direct Debit
+ 01/07/2020 [PDA-U]  INVESTEC ASSET FIN     -£128.73 [PO-U]   £3,895.74 [B-U] 
+21943023815882055 DDR
+Direct Debit
+ 01/07/2020 [PDA-U]  VERISURE SERVICES     -£66.94 [PO-U]   £4,024.47 [B-U] 
+HMKBK7R-222142 DDR
+Direct Debit
+ASH WASTE SERVICES 
+ 01/07/2020 [PDA-U]     -£45.37 [PO-U]   £4,091.41 [B-U] 
+ASH1000023197 
+FIRST DDR PAYMENT DDR
+ Need [PDA-B]  to [PDA-I]  view [PDA-I]  older [PDA-L]   transactions? [PDE-U] 
+ If [PDA-B]  you [PDA-I]  have [PDA-I]  registered [PDA-L]   for [PDE-B]  online [PDE-I]  statements, [PDE-I]  then [PDE-I]  follow [PDE-I]  the [PDE-I]  link [PDE-L]  to view them 
+ If [PDA-B]  you [PDA-I]  don't [PDA-I]  have [PDA-I]  online [PDA-L]   statements, [PDE-B]  then [PDE-I]  statements [PDE-I]  may [PDE-I]  still [PDE-I]  be [PDE-L]  visible in Barclays Cloud It
+ If [PDA-B]  you [PDA-I]  can't [PDA-I]  find [PDA-I]  the [PDA-L]   relevant [PDE-B]  statement/transactions [PDE-I]  online, [PDE-I]  you [PDE-L]  can order a copy statement
+ Barclays [PDA-B]  Bank [PDA-I]  UK [PDA-I]  PLC. [PDA-I]  Authorised [PDA-L]   by [PDE-B]  the [PDE-I]  Prudential [PDE-I]  Regulation [PDE-I]  Authority [PDE-I]  and [PDE-L]  regulated by the Financial Conduct  Authority [B-B]  and [B-I]  the [B-I]  Prudential [B-L] 
+ Regulation [PDA-B]  Authority [PDA-I]  (Financial [PDA-L]   Services [PDE-B]  Register [PDE-I]  number: [PDE-I]  759676). [PDE-I]  Barclays [PDE-I]  Bank [PDE-L]  UK PLC adheres  to [PO-B]  The [PO-I]  Standards [PO-L]   of [B-B]  Lending [B-I]  Practice [B-I]  which [B-I]  is [B-L] 
+ monitored [PDA-B]  and [PDA-I]  enforced [PDA-I]  by [PDA-I]  The [PDA-L]   Lending [PDE-B]  Standards [PDE-I]  Board. [PDE-I]  Further [PDE-I]  details [PDE-I]  can [PDE-I]  be [PDE-L]  found at www.lendingstandardsboard.org.uk.
+ Barclays [PDA-B]  Insurance [PDA-I]  Services [PDA-L]   Company [PDE-B]  Limited [PDE-I]  is [PDE-I]  authorised [PDE-I]  and [PDE-I]  regulated [PDE-I]  by [PDE-I]  the [PDE-L]  Financial Conduct  Authority [PO-B]  (Financial [PO-L]   Services [B-B]  Register [B-I]  number: [B-L] 
+312078).
+Barclays Smart Investor is a trading name of Barclays Investment Solutions Limited. Barclays Investment Solutions Limited is authorised and regulated
+ by [PDA-B]  the [PDA-I]  Financial [PDA-I]  Conduct [PDA-I]  Authority. [PDA-L]  (Financial Services Register number: 155595). Barclays Investment Solutions Limited is a member of the London
+Stock Exchange & NEX.
+Barclays Bank PLC. Authorised by the Prudential Regulation Authority and regulated by the FinancialConduct [PO-B]  Authority [PO-L] and [B-B]  the [B-I]  Prudential [B-I]  Regulation [B-L] 
+ Authority [PDA-B]  (Financial [PDA-I]  Services [PDA-L]  Register number: 122702).
+ Barclays [PDA-B]  Bank [PDA-I]  UK [PDA-I]  PLC. [PDA-I]  Registered [PDA-L]   no. [PDE-B]  9740322. [PDE-I]  Barclays [PDE-I]  Insurance [PDE-I]  Services [PDE-L]  Company Limited.  Registered [PO-B]  no. [PO-I]  973765. [PO-L]   Barclays [B-B]  Investment [B-L] 
+ Solutions [PDA-B]  Limited. [PDA-I]  Registered [PDA-I]  no. [PDA-L]   2752982. [PDE-B]  Barclays [PDE-I]  Bank [PDE-I]  PLC. [PDE-I]  Registered [PDE-I]  no. [PDE-L]  1026167. All registered  in [PO-B]  England. [PO-L]   Registered [B-B]  office [B-I]  for [B-I]  all: [B-I]  1 [B-I]  Churchill [B-L] 
+ Place, [PDA-B]  London [PDA-I]  E14 [PDA-I]  5HP. [PDA-L] 
