@@ -106,6 +106,7 @@ class labeler():
         logger.info(" Extracting entities with the extractors and creating a list of dictionaries {entity:value} ...")
         # Extract entities with Dig tools
         self.dict_entities = {}
+        files_to_delete = []
 
         # Loop over files
         for file in self.list_files:
@@ -119,10 +120,15 @@ class labeler():
             else:
                 with open(my_output, 'r') as f1:
                     output = json.load(f1)
+                    f1.close()
             if output == "":
-                self.list_files.remove(file)
+                files_to_delete.append(file)
                 continue
-            pages = output['extractionResults']['documentTypes'][0]['documents'][0]['pages']
+            try:
+                pages = output['extractionResults']['documentTypes'][0]['documents'][0]['pages']
+            except:
+                continue
+
 
             # Loop over pages
             list_ = []
@@ -145,6 +151,10 @@ class labeler():
                     else:
                         pass
             self.dict_entities[file] = list_
+
+        # Remove files with empty json
+        for file in files_to_delete:
+            self.list_files.remove(file)
 
     def extract_text(self):
         """ Extracts the entities from each file listed and creates a list of dictionaries entity type (old one)
@@ -202,7 +212,7 @@ class labeler():
 
                 doc = doc1
 
-                tagged_file_path = join(self.data_path, file.split(".")[0] + ".txt")
+                tagged_file_path = join(self.data_path, file.split(".pdf")[0] + ".txt")
                 with open(tagged_file_path, "w+", encoding="utf-8") as file:
                     file.write(doc)
                     file.close()
