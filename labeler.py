@@ -191,54 +191,56 @@ class labeler():
                 for entity in list_entities:
                     for key, value in entity.items():
                         tag = self.switcher.get(key, "Invalid field")
-                        values_list = [v for v in value.split(" ")]
-                        values_list = list(filter(lambda a: a != "", values_list))
-                        initial_values_list = values_list.copy()
+                        if tag != "Invalid field":
+                            values_list = [v for v in value.split(" ")]
+                            values_list = list(filter(lambda a: a != "", values_list))
+                            initial_values_list = values_list.copy()
 
-                        if len(values_list) == 1:
-                            values_list[0] = values_list[0] + ' [' + tag + '-U] '
+                            if len(values_list) == 1:
+                                values_list[0] = values_list[0] + ' [' + tag + '-U] '
 
-                        if len(values_list) == 2:
-                            values_list[0] = values_list[0] + ' [' + tag + '-B] '
-                            values_list[1] = values_list[1] + ' [' + tag + '-L] '
+                            if len(values_list) == 2:
+                                values_list[0] = values_list[0] + ' [' + tag + '-B] '
+                                values_list[1] = values_list[1] + ' [' + tag + '-L] '
 
-                        if len(values_list) > 2:
-                            values_list[0] = values_list[0] + ' [' + tag + '-B] '
-                            values_list[-1] = values_list[-1] + ' [' + tag + '-L] '
-                            num_val = len(values_list)
-                            for i in range(num_val):
-                                if i != 0 and i != (num_val - 1):
-                                    values_list[i] = values_list[i] + ' [' + tag + '-I] '
-                        new_value = " ".join(values_list)
-                        try:
-                            doc11, doc2 = doc.split(value.strip(), 1)
-                            doc1 = doc1 + doc11 + " " + new_value
-                            doc = doc2
-                        except:
-                            if value in doc1:
-                                doc1 = doc1.replace(value, new_value)
-                            else:
-                                try:
-                                    end_doc1 = doc1[-100:]
-                                    doc1 = doc1[:-100]
-                                except:
-                                    end_doc1 = doc1[-50:]
-                                    doc1 = doc1[:-50]
-                                try:
-                                    start_doc = doc[:100]
-                                    doc = doc[100:]
-                                except:
-                                    start_doc = doc[:50]
-                                    doc = doc[50:]
-                                for i in range(len(initial_values_list)):
-                                    if initial_values_list[i] in end_doc1:
-                                        end_doc1 = end_doc1.replace(initial_values_list[i], values_list[i])
-                                    elif initial_values_list[i] in start_doc:
-                                        start_doc = start_doc.replace(initial_values_list[i], values_list[i])
-                                    else:
-                                        pass
-                                doc = end_doc1 + start_doc + doc
-
+                            if len(values_list) > 2:
+                                values_list[0] = values_list[0] + ' [' + tag + '-B] '
+                                values_list[-1] = values_list[-1] + ' [' + tag + '-L] '
+                                num_val = len(values_list)
+                                for i in range(num_val):
+                                    if i != 0 and i != (num_val - 1):
+                                        values_list[i] = values_list[i] + ' [' + tag + '-I] '
+                            new_value = " ".join(values_list)
+                            try:
+                                doc11, doc2 = doc.split(value.strip(), 1)
+                                doc1 = doc1 + doc11 + " " + new_value
+                                doc = doc2
+                            except:
+                                if value in doc1:
+                                    doc1 = doc1.replace(value, new_value)
+                                else:
+                                    try:
+                                        end_doc1 = doc1[-100:]
+                                        doc1 = doc1[:-100]
+                                    except:
+                                        end_doc1 = doc1[-50:]
+                                        doc1 = doc1[:-50]
+                                    try:
+                                        start_doc = doc[:100]
+                                        doc = doc[100:]
+                                    except:
+                                        start_doc = doc[:50]
+                                        doc = doc[50:]
+                                    for i in range(len(initial_values_list)):
+                                        if initial_values_list[i] in end_doc1:
+                                            end_doc1 = end_doc1.replace(initial_values_list[i], values_list[i])
+                                        elif initial_values_list[i] in start_doc:
+                                            start_doc = start_doc.replace(initial_values_list[i], values_list[i])
+                                        else:
+                                            pass
+                                    doc = end_doc1 + start_doc + doc
+                        else:
+                            pass
                 doc = doc1
 
                 tagged_file_path = join(self.data_path, file.split(".pdf")[0] + ".txt")
