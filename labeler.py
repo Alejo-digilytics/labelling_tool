@@ -174,8 +174,6 @@ class labeler():
                     text += "\n" + page_text
             if text != "":
                 self.dict_text[file] = text
-        with open("text.txt", "w+", encoding="UTF-8") as mytext:
-            mytext.write(text)
 
     def tagger(self):
         """ replace the values from the entities by their value per word plus the positional tag,
